@@ -59,6 +59,21 @@ app.post('/submit-tool', async (req, res) => {
 
 });
 
+app.get('/get-all-tools', async (req, res) => {
+    try {
+        const { data, error } = await supabase.from('products').select('*');
+        if (error) {
+            console.error('Error fetching data:', error);
+            res.status(500).json({ error: 'Error fetching data' });
+        } else {
+            res.json(data);
+        }
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 const saveToSupabase = async (productUrl, description, mail) => {
     try {
         const { data, error } = await supabase
