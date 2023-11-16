@@ -9,6 +9,12 @@ import { createClient } from "@supabase/supabase-js";
 import { config as envConfig } from "dotenv";
 envConfig();
 
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    // Additional error handling or cleanup logic can go here
+    // Note: Continuing the application after an unhandled exception is risky
+});
+
 // Initialize Supabase client with your Supabase project URL and public API key
 const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABASE_KEY || "");
 
